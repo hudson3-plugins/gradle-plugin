@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import net.sf.json.JSONObject;
+import org.kohsuke.stapler.StaplerRequest;
 
 
 /**
@@ -356,6 +358,21 @@ public class Gradle extends Builder implements DryRun {
         public void setInstallations(GradleInstallation... installations) {
             this.installations = installations;
             save();
+        }
+        
+        @Override
+        public Gradle newInstance(StaplerRequest request, JSONObject formData) throws FormException {
+
+            // "flatten" formData for useWrapper radioBlocks
+            JSONObject useWrapper = formData.getJSONObject("useWrapper");
+            boolean wrapper = useWrapper.getBoolean("value");
+            useWrapper.remove("value");
+            for (String key : (Set<String>) useWrapper.keySet()) {
+                formData.put(key, useWrapper.get(key));
+            }
+            formData.put("useWrapper", wrapper);
+
+            return (Gradle) request.bindJSON(clazz, formData);
         }
     }
 }
