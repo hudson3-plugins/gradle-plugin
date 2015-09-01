@@ -9,7 +9,7 @@
 
     <groupId>org.hudsonci.plugins</groupId>
     <artifactId>gradle</artifactId>
-    <version>1.24-h-3</version>
+    <version>1.24-h-4-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Gradle plugin</name>
     <url>http://wiki.hudson-ci.org/display/HUDSON/Gradle+Plugin</url>
